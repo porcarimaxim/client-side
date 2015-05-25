@@ -1,6 +1,7 @@
 ( function (app) {
     'use strict';
 
-    /* Services */
+    /* Filters */
 
-}(phone));
+
+}(conversations));

@@ -1,4 +1,4 @@
-<div>
+<md-toolbar>
     <div class="md-toolbar-tools">
         <span>2 / 0 users</span>
         <md-button>Message</md-button>
@@ -6,10 +6,30 @@
         <md-button>Delete</md-button>
         <md-button>Export</md-button>
         <md-button>Import</md-button>
+
+	    <span flex></span>
+
+	    <md-button class="md-raised md-warn" ng-click="changeStatus()">Available</md-button>
+
     </div>
-</div>
+</md-toolbar>
 <md-content layout="column" flex class="table-responsive">
 
-    content
+	<table class="table table-striped table-hover" ng-table="tableParams">
+		<tbody>
+			<tr ng-repeat="call in calls">
+
+				<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+					<md-checkbox aria-label=" " ng-model="checkboxes.items[user.id]" ></md-checkbox>
+				</td>
+
+				<td data-title="'Number'">{{call.number}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script type="text/ng-template" id="ng-table/headers/checkbox.html">
+		<md-checkbox ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" aria-label=" "></md-checkbox>
+	</script>
 
 </md-content>

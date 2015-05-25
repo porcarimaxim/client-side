@@ -1,6 +1,6 @@
 'use strict';
 var phone = (function () {
 
-    return angular.module('app-calls', ['ngResource', 'ngMaterial']);
+    return angular.module('app-calls', ['ngResource', 'ngMaterial', 'ngTable']);
 
 }());

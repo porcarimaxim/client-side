@@ -4,19 +4,19 @@
     app.config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/calls');
+            $urlRouterProvider.otherwise('/users');
 
             $stateProvider
-                .state('app.calls', {
-                    url: 'calls',
+                .state('app.users', {
+                    url: 'users',
                     views: {
                         'content@': {
-                            templateUrl: 'app/modules/calls/views/calls.html',
-                            controller: 'CallsListCtrl'
+                            templateUrl: 'app/modules/users/views/users.html',
+                            controller: 'UsersListCtrl'
                         }
                     }
                 });
         }
     ]);
 
-}(phone));
+}(users));
