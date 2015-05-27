@@ -9,6 +9,7 @@
             $stateProvider
                 .state('app.calls', {
                     url: 'calls',
+
                     views: {
                         'content@': {
                             templateUrl: 'app/modules/calls/views/calls.html',

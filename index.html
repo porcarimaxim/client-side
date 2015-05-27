@@ -42,6 +42,37 @@
     <script src="app/app.module.js"></script>
     <script src="app/app.routes.js"></script>
 
+    <script type="text/javascript">
+
+
+        //TODO autogenerate from backend
+        (function( app ) {
+
+            'use strict';
+
+            app.value(
+                    'config',
+                    {
+                        pusher: {
+                            appKey: 'api key pentru testse'
+                        },
+                        user: {
+                            id: 1
+                        },
+                        company: {
+                            id: 1
+                        }
+                    }
+            );
+
+        }(app));
+
+    </script>
+
+
+    <script src="app/core/services/auth.js"></script>
+
+
     <script src="app/core/my-account/controllers/my-account.js"></script>
     <script src="app/core/my-account/services/my-account.js"></script>
     <script src="app/core/my-account/filters/my-account.js"></script>
