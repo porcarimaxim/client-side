@@ -41,13 +41,12 @@
 
     <script type="text/javascript">
 
-
         //TODO autogenerate from backend
         (function( app ) {
 
             'use strict';
 
-            app.value(
+            app.constant(
                     'config',
                     {
                         pusher: {
@@ -66,9 +65,9 @@
 
     </script>
 
-
     <script src="app/core/services/auth.js"></script>
-
+    <script src="app/core/services/users.js"></script>
+    <script src="app/core/services/companies.js"></script>
 
     <script src="app/core/my-account/controllers/my-account.js"></script>
     <script src="app/core/my-account/services/my-account.js"></script>

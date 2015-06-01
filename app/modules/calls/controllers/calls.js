@@ -4,9 +4,10 @@
 
 	/* Controllers */
 
-	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status) {
+	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'CurrentUser',
+		function ($scope, $timeout, $log, Calls, NgTableParams, Status, CurrentUser) {
 
+			console.log( CurrentUser );
 			$scope.tableParams = new NgTableParams({
 				page: 1,            // show first page
 				count: 10,          // count per page

@@ -2,7 +2,7 @@
     'use strict';
 
     app.config(['$stateProvider', '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+        function ($stateProvider, $urlRouterProvider ) {
 
             $urlRouterProvider.otherwise('/');
 
@@ -11,20 +11,26 @@
                     url: '/',
                     resolve: {
                         // TODO cind vom putea scri cod frumos pe angular sa asezam functia la locul ei
-                        loadUser: function ($q, $timeout) {
+                        // TODO de rezolvat problema: la uglify variabila Users nu va fi disponibila
+                        CurrentUser: function ($q, $timeout, Users, config) {
+
                             var defer = $q.defer();
-                            $timeout(function () {
-                                defer.resolve('test');
-                                console.log('loadData');
-                            }, 1000);
+
+                            Users.get({id: config.user.id},  function (users) {
+                                // TODO users.getAt(0)
+                                defer.resolve( users.users[0] );
+                            });
+
                             return defer.promise;
                         },
-                        loadCompany: function ($q, $timeout) {
+
+                        CurrentCompany: function ($q, $timeout, Companies, config) {
                             var defer = $q.defer();
-                            $timeout(function () {
-                                defer.resolve('test 2');
-                                console.log('loadData 2');
-                            }, 2000);
+                            Companies.get({id: config.company.id},  function (companies) {
+                                // TODO users.getAt(0)
+                                defer.resolve( companies.companies[0] );
+                            });
+
                             return defer.promise;
                         }
 
