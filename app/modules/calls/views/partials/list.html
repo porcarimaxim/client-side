@@ -19,11 +19,11 @@
 		<tbody>
 			<tr ng-repeat="call in calls">
 
-				<td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
-					<md-checkbox aria-label=" " ng-model="checkboxes.items[user.id]" ></md-checkbox>
+				<td style="text-align: left" header="'ng-table/headers/checkbox.html'">
+					<md-checkbox aria-label="Select call" ng-model="checkboxes.items[call.id]"></md-checkbox>
 				</td>
 
-				<td data-title="'Number'">{{call.number}}</td>
+				<td data-title="'Number'" ng-click="checkboxes.items[call.id]=!checkboxes.items[call.id]">{{call.number}}</td>
 			</tr>
 		</tbody>
 	</table>
