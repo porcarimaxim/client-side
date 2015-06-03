@@ -9,7 +9,9 @@
 
 	    <span flex></span>
 
-	    <md-button class="md-raised md-warn" ng-click="changeStatus()">Available</md-button>
+		<md-switch aria-label="Available" ng-model="userAvailable" ng-change="changeAvailability(userAvailable)">
+			Available
+		</md-switch>
 
     </div>
 </md-toolbar>

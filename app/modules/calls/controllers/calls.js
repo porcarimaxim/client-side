@@ -4,10 +4,12 @@
 
 	/* Controllers */
 
-	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'CurrentUser',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status, CurrentUser) {
+	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'currentUser', 'currentCompany',
+		function ($scope, $timeout, $log, Calls, NgTableParams, Status, currentUser, currentCompany) {
 
-			console.log( CurrentUser );
+			//$scope.userAvailable = ( ( currentUser || {} ).status || {} ).is_available || false;
+			$scope.userAvailable = currentUser.status.is_available;
+
 			$scope.tableParams = new NgTableParams({
 				page: 1,            // show first page
 				count: 10,          // count per page
@@ -18,13 +20,15 @@
 				$scope.calls = calls.calls;
 			});
 
-			$scope.changeStatus = function () {
+			$scope.changeAvailability = function ( userAvailable ) {
+
+				console.log( currentUser );
 				Status.update({
-					id: 1
+					id: currentUser.id
 				}, {
-					company_id: 1,
-					user_id: 1,
-					is_available: 0
+					company_id: currentCompany.id,
+					user_id: currentUser.id,
+					is_available: userAvailable
 				});
 			};
 
