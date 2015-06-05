@@ -6,31 +6,34 @@
 
 			$urlRouterProvider.otherwise('/');
 
-			var currentUser = function ($q, $timeout, Users, config) {
+			var currentUser,
+				currentCompany;
 
+			currentUser = function ($q, $timeout, AuthService, Users, config) {
 				var defer = $q.defer();
 
 				Users.get({id: config.user.id}, function (users) {
 					// TODO users.getAt(0)
-					defer.resolve(users.users[0]);
+					AuthService.setUser(users.users[0]);
+					defer.resolve();
 				});
 
 				return defer.promise;
 			};
-			currentUser.$inject = ['$q', '$timeout', 'Users', 'config'];
+			currentUser.$inject = ['$q', '$timeout', 'AuthService', 'Users', 'config'];
 
-			var currentCompany = function ($q, $timeout, Companies, config) {
-
+			currentCompany = function ($q, $timeout, AuthService, Companies, config) {
 				var defer = $q.defer();
 
 				Companies.get({id: config.company.id}, function (companies) {
 					// TODO users.getAt(0)
-					defer.resolve(companies.companies[0]);
+					AuthService.setCompany(companies.companies[0]);
+					defer.resolve();
 				});
 
 				return defer.promise;
 			};
-			currentCompany.$inject = ['$q', '$timeout', 'Companies', 'config'];
+			currentCompany.$inject = ['$q', '$timeout', 'AuthService', 'Companies', 'config'];
 
 
 			$stateProvider

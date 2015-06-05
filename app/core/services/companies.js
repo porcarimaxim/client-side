@@ -1,9 +1,9 @@
 ( function (app) {
 	'use strict';
 
-	app.factory('Companies', ['$resource',
-		function ($resource) {
-			return $resource(appConfig.getApiRoute('companies') + '/:id', {}, {
+	app.factory('Companies', ['$resource', 'API',
+		function ($resource, API) {
+			return $resource(API + '/companies/:id', {}, {
 				query: {method: 'GET', params: {id: ''}, isArray: true},
 				post: {method: 'POST'},
 				update: {method: 'PUT', params: {id: '@id'}},

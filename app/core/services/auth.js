@@ -1,24 +1,42 @@
 ( function (app) {
-    'use strict';
+	'use strict';
 
-    app.factory('AuthService', ['$resource',
-        function ($resource) {
+	app.service('AuthService', function () {
+		var user,
+			company;
 
-            var currentUser;
+		function setUser(value) {
+			user = value;
+		}
 
-            function login() {
+		function getUser() {
+			return user;
+		}
 
-            }
+		function setCompany(value) {
+			company = value;
+		}
 
-            function currentUser() {
-                return currentUser;
-            }
+		function getCompany() {
+			return company;
+		}
 
-            return {
-                login: login,
-                currentUser: currentUser
-            };
-        }
-    ]);
+		function setUserStatus(value) {
+			user.status ? ( user.status.is_available =  value ) : ( user.status = {is_available: value} );
+		}
+
+		function getUserStatus() {
+			return ( ( getUser() || {} ).status || {} ).is_available || false;
+		}
+
+		return {
+			setUser: setUser,
+			getUser: getUser,
+			setCompany: setCompany,
+			getCompany: getCompany,
+			setUserStatus: setUserStatus,
+			getUserStatus: getUserStatus
+		};
+	});
 
 }(app));

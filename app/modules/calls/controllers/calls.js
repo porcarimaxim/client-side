@@ -4,34 +4,50 @@
 
 	/* Controllers */
 
-	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'currentUser', 'currentCompany',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status, currentUser, currentCompany) {
+	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'AuthService',
+		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService) {
+			var currentUser = AuthService.getUser(),
+				currentCompany = AuthService.getCompany();
 
-			//$scope.userAvailable = ( ( currentUser || {} ).status || {} ).is_available || false;
-			$scope.userAvailable = currentUser.status.is_available;
+			/**
+			 * View properties
+			 */
+			$scope.data = {
+				userAvailable: AuthService.getUserStatus()
+			};
 
+			// Initialise ng-table
 			$scope.tableParams = new NgTableParams({
-				page: 1,            // show first page
-				count: 10,          // count per page
+				page: 1,
+				count: 10,
 				sorting: {}
 			});
 
+			/**
+			 * API calls
+			 */
 			Calls.get({}, function (calls) {
 				$scope.calls = calls.calls;
 			});
 
-			$scope.changeAvailability = function ( userAvailable ) {
-
-				console.log( currentUser );
+			/**
+			 * Handlers
+			 */
+			$scope.changeAvailability = function (isAvailable) {
 				Status.update({
 					id: currentUser.id
 				}, {
 					company_id: currentCompany.id,
 					user_id: currentUser.id,
-					is_available: userAvailable
-				});
+					is_available: isAvailable
+				}).$promise.then(
+					function () {
+						AuthService.setUserStatus(isAvailable);
+					},
+					function () {
+						$scope.data.userAvailable = AuthService.getUserStatus();
+					}
+				);
 			};
-
 		}]);
-
 }(phone));

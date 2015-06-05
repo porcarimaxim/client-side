@@ -1,17 +1,19 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <span>2 / 0 users</span>
-        <md-button>Message</md-button>
-        <md-button>Tag</md-button>
-        <md-button>Delete</md-button>
-        <md-button>Export</md-button>
-        <md-button>Import</md-button>
+
+	    <span>2 / 0 users</span>
+	    <md-button>Message</md-button>
+	    <md-button>Tag</md-button>
+	    <md-button>Delete</md-button>
+	    <md-button>Export</md-button>
+	    <md-button>Import</md-button>
 
 	    <span flex></span>
 
-		<md-switch aria-label="Available" ng-model="userAvailable" ng-change="changeAvailability(userAvailable)">
-			Available
-		</md-switch>
+	    <md-switch aria-label="Available" ng-model="data.userAvailable" ng-change="changeAvailability(data.userAvailable)">
+		    <span ng-show="data.userAvailable">Available</span>
+		    <span ng-hide="data.userAvailable">Away</span>{{bla}}
+	    </md-switch>
 
     </div>
 </md-toolbar>
