@@ -1,7 +1,40 @@
-<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')">
+<md-content layout="column" flex>
 
-    <div class="slide-animate" ng-include="'app/modules/calls/views/partials/filters.html'"></div>
+	<md-toolbar layout="row" class="md-whiteframe-z2 cmb-app-toolbar">
+		<div class="md-toolbar-tools">
 
-</md-sidenav>
-<div class="slide-animate" layout="column" layout-fill id="content" ng-include="'app/modules/calls/views/partials/list.html'"></div>
+			<md-button id="tLabel" class="md-icon-button" aria-label="More" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" hide-gt-sm>
+				<md-icon md-svg-icon="app/assets/img/icons/ic_menu_24px.svg"></md-icon>
+				<span class="caret"></span>
+			</md-button>
+
+			<h2><span>{{ calls.length }} calls</span></h2>
+
+			<span hide-sm>
+				<md-button>Calls</md-button>
+				<md-button>Operators</md-button>
+			</span>
+
+			<span flex></span>
+
+			<span ng-click="data.userAvailable=!data.userAvailable" hide-sm>
+				<span ng-show="data.userAvailable">Available</span>
+				<span ng-hide="data.userAvailable">Away</span>
+			</span>
+			<md-switch id="ddd" aria-label="Available" ng-model="data.userAvailable" ng-change="changeAvailability(data.userAvailable)"></md-switch>
+
+		</div>
+	</md-toolbar>
+
+	<md-content layout="row" flex>
+
+		<md-sidenav layout="column" class="app-nav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+
+			<div class="slide-animate" ng-include="'app/modules/calls/views/partials/filters.html'"></div>
+
+		</md-sidenav>
+
+		<div class="slide-animate" layout="column" layout-fill id="content" ng-include="'app/modules/calls/views/partials/list.html'"></div>
+	</md-content>
+
+</md-content>

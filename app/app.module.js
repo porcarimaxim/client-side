@@ -8,9 +8,11 @@ var app = (function () {
 		'ngResource',
 
 		'app-calls'
-	]).run(['$location',
+	]).config(function($mdThemingProvider) {
+		$mdThemingProvider.theme('default')
+			.primaryPalette('light-blue');
+	}).run(['$location',
 		function ($location) {
-			// TODO: Sunt de parerea ca ar fi bine aici de verificat autentificarea
 			$location.path('/calls');
 		}
 	]);

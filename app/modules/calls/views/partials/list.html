@@ -1,22 +1,3 @@
-<md-toolbar>
-    <div class="md-toolbar-tools">
-
-	    <span>2 / 0 users</span>
-	    <md-button>Message</md-button>
-	    <md-button>Tag</md-button>
-	    <md-button>Delete</md-button>
-	    <md-button>Export</md-button>
-	    <md-button>Import</md-button>
-
-	    <span flex></span>
-
-	    <md-switch aria-label="Available" ng-model="data.userAvailable" ng-change="changeAvailability(data.userAvailable)">
-		    <span ng-show="data.userAvailable">Available</span>
-		    <span ng-hide="data.userAvailable">Away</span>{{bla}}
-	    </md-switch>
-
-    </div>
-</md-toolbar>
 <md-content layout="column" flex class="table-responsive">
 
 	<table class="table table-striped table-hover" ng-table="tableParams">
@@ -26,8 +7,12 @@
 				<td style="text-align: left" header="'ng-table/headers/checkbox.html'">
 					<md-checkbox aria-label="Select call" ng-model="checkboxes.items[call.id]"></md-checkbox>
 				</td>
+				<td data-title="'Number'">{{call.number}}</td>
+				<td data-title="'Status'">{{call.status}}</td>
+				<td data-title="'Timer'">{{call.timer}}</td>
+				<td data-title="'Operator'">{{call.user.last_name}} {{call.user.first_name}}</td>
+				<td data-title="'Created at'">{{call.created_at.date}}</td>
 
-				<td data-title="'Number'" ng-click="checkboxes.items[call.id]=!checkboxes.items[call.id]">{{call.number}}</td>
 			</tr>
 		</tbody>
 	</table>
