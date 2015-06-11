@@ -33,6 +33,7 @@
 			/**
 			 * Handlers
 			 */
+			//availability
 			$scope.changeAvailability = function (isAvailable) {
 				Status.update({
 					id: currentUser.id

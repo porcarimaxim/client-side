@@ -6,7 +6,6 @@ var app = (function () {
 		'ngMaterial',
 		'ui.router',
 		'ngResource',
-
 		'app-calls'
 	]).config(function($mdThemingProvider) {
 		$mdThemingProvider.theme('default')

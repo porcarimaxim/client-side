@@ -1,24 +1,34 @@
-<md-content layout="column" flex class="table-responsive">
+<md-card layout="column" flex class="table-responsive">
 
-	<table class="table table-striped table-hover" ng-table="tableParams">
-		<tbody>
-			<tr ng-repeat="call in calls">
+	<md-data-table-toolbar class="alternate">
+		<div>{{selected.length}} / {{calls.length}}  {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+	</md-data-table-toolbar>
 
-				<td style="text-align: left" header="'ng-table/headers/checkbox.html'">
-					<md-checkbox aria-label="Select call" ng-model="checkboxes.items[call.id]"></md-checkbox>
-				</td>
-				<td data-title="'Number'">{{call.number}}</td>
-				<td data-title="'Status'">{{call.status}}</td>
-				<td data-title="'Timer'">{{call.timer}}</td>
-				<td data-title="'Operator'">{{call.user.last_name}} {{call.user.first_name}}</td>
-				<td data-title="'Created at'">{{call.created_at.date}}</td>
-
+	<md-data-table-container>
+		<table md-data-table md-row-select="selected">
+			<thead md-filter="query.filter" md-trim-column-names>
+			<tr>
+				<th order-by="number">Number</th>
+				<th order-by="status">Status</th>
+				<th order-by="tTimer">Timer</th>
+				<th order-by="">Operator</th>
+				<th order-by="created_at.date">Date</th>
 			</tr>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+			<tr ng-repeat="call in calls">
+				<td>{{call.number}}</td>
+				<td>{{call.status}}</td>
+				<td>{{call.timer}}</td>
+				<td>{{call.user.last_name}} {{call.user.first_name}}</td>
+				<td>{{call.created_at.date}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</md-data-table-container>
 
-	<script type="text/ng-template" id="ng-table/headers/checkbox.html">
-		<md-checkbox ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" aria-label=" "></md-checkbox>
-	</script>
+	<md-data-table-toolbar layout-align="end">
+		<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{calls.count}}"></md-data-table-pagination>
+	</md-data-table-toolbar>
 
-</md-content>
+</md-card>
