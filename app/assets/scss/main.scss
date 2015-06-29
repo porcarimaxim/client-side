@@ -1,0 +1,54 @@
+.app-nav {
+	z-index: 1;
+}
+
+body {
+	overflow-y: auto !important;
+}
+
+.table {
+	font-size: 15px;
+	width: 100%;
+	border-spacing: 0;
+	/* 12sp Roboto Medium, 54% black */
+	/* 64dp card header height */
+	/* 56do for last row */
+	/* column padding */
+	/* 48dp row height */
+	/* 13sp Roboto Regular, 87% black */
+	/* border separation color */
+	/* INTERACTION */
+
+	& > thead,
+	& > tbody,
+	& > tfoot {
+
+		& > tr {
+
+			& > th,
+			& > td {
+				padding-right: 56px;
+				text-align: left;
+				height: 48px;
+				font-size: 13px;
+				color: #212121;
+				vertical-align: middle;
+				border-bottom: solid 1px #DDDDDD;
+
+				&:first-child {
+					padding: 0 0 0 24px;
+				}
+
+				&:last-child {
+					padding-right: 24px;
+				}
+			}
+
+			&:hover {
+				td {
+					background: #EEEEEE;
+				}
+			}
+		}
+	}
+}

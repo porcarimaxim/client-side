@@ -1,34 +1,60 @@
-<md-card layout="column" flex class="table-responsive">
+<md-toolbar class="md-accent">
+	<div class="md-toolbar-tools">
+		<md-button ng-hide="checkboxes.itemsChecked > 0">Add</md-button>
+		<span ng-show="checkboxes.itemsChecked > 0">{{checkboxes.itemsChecked}} item selected</span>
+		<span flex></span>
 
-	<md-data-table-toolbar class="alternate">
-		<div>{{selected.length}} / {{calls.length}}  {{selected.length > 1 ? 'items' : 'item'}} selected</div>
-	</md-data-table-toolbar>
+		<md-menu md-position-mode="target-right target">
+			<md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu()">
+				<md-icon md-svg-icon="app/assets/img/icons/more_vert.svg"></md-icon>
+			</md-button>
+			<md-menu-content layout-padding width="4">
+				<md-menu-item><md-checkbox ng-model="data.columns['number']" aria-label="Number">Number</md-checkbox></md-menu-item>
+				<md-menu-item><md-checkbox ng-model="data.columns['status']" aria-label="Status">Status</md-checkbox></md-menu-item>
+				<md-menu-item><md-checkbox ng-model="data.columns['timer']" aria-label="Timer">Timer</md-checkbox></md-menu-item>
+				<md-menu-item><md-checkbox ng-model="data.columns['full_name']" aria-label="Operator">Operator</md-checkbox></md-menu-item>
+				<md-menu-item><md-checkbox ng-model="data.columns['created_at']" aria-label="Created at">Created at</md-checkbox></md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+</md-toolbar>
 
-	<md-data-table-container>
-		<table md-data-table md-row-select="selected">
-			<thead md-filter="query.filter" md-trim-column-names>
-			<tr>
-				<th order-by="number">Number</th>
-				<th order-by="status">Status</th>
-				<th order-by="tTimer">Timer</th>
-				<th order-by="">Operator</th>
-				<th order-by="created_at.date">Date</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr ng-repeat="call in calls">
-				<td>{{call.number}}</td>
-				<td>{{call.status}}</td>
-				<td>{{call.timer}}</td>
-				<td>{{call.user.last_name}} {{call.user.first_name}}</td>
-				<td>{{call.created_at.date}}</td>
-			</tr>
-			</tbody>
-		</table>
-	</md-data-table-container>
+<md-content layout-padding flex class="table-responsive" >
+	<table class="table ng-table-responsive" template-pagination="custom/pager" ng-table="tableParams">
+		<tbody>
+		<tr ng-repeat="call in calls">
+			<td class="column" header="'ng-table/headers/checkbox.html'">
+				<md-checkbox aria-label="Select call" ng-model="checkboxes.items[call.id]"></md-checkbox>
+			</td>
+			<td class="column" ng-show="data.columns['number']" data-title="'Number'" sortable="'number'">{{call.number}}</td>
+			<td class="column" ng-show="data.columns['status']" data-title="'Status'" sortable="'status'">{{call.status}}</td>
+			<td class="column" ng-show="data.columns['timer']" data-title="'Timer'" sortable="'timer'">{{call.timer}}</td>
+			<td class="column" ng-show="data.columns['full_name']" data-title="'Operator'" sortable="'full_name'">{{call.user.last_name}} {{call.user.first_name}}</td>
+			<td class="column" ng-show="data.columns['created_at']" data-title="'Created at'" sortable="'created_at'">{{parseTheDate(call.created_at.date) | date:'dd/MM/yyyy HH:mm'}}</td>
+		</tr>
+		</tbody>
+	</table>
 
-	<md-data-table-toolbar layout-align="end">
-		<md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{calls.count}}"></md-data-table-pagination>
-	</md-data-table-toolbar>
+	<script type="text/ng-template" id="ng-table/headers/checkbox.html">
+		<md-checkbox ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" aria-label=" "></md-checkbox>
+	</script>
 
-</md-card>
+	<script type="text/ng-template" id="custom/pager">
+		<ul class="pager ng-cloak">
+			<li ng-repeat="page in pages"
+				ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+				ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+				<a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+				<a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+			</li>
+			<li>
+				<div class="btn-group">
+					<button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+					<button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+					<button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+					<button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+				</div>
+			</li>
+		</ul>
+	</script>
+</md-content>

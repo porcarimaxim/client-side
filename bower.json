@@ -12,10 +12,11 @@
     "angular-route": "~1.4.0",
     "angular-resource": "1.4.x",
     "angular-animate": "~1.4.0",
-    "angular-material": "~0.9.8",
+    "angular-material": "~0.10.0",
     "angular-ui-router": "~0.2.14",
     "ng-table": "~0.5.4",
     "lodash": "~3.9.3",
-    "angular-material-data-table": "*"
+    "angular-material-data-table": "*",
+    "bootstrap": "~3.3.5"
   }
 }
