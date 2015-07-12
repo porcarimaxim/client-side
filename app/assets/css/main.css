@@ -31,4 +31,9 @@ body {
   .table > thead > tr:hover td, .table > tbody > tr:hover td, .table > tfoot > tr:hover td {
     background: #EEEEEE; }
 
+.filters input {
+  margin-left: 28pt; }
+.filters md-input-container {
+  padding-bottom: 2px; }
+
 /*# sourceMappingURL=main.css.map */

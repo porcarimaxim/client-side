@@ -32,20 +32,27 @@
     <script src="app/bower_components/ng-table/dist/ng-table.js"></script>
     <script src="app/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
 
+    <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
 
-    <script src="app/core/config.js"></script>
-    <script src="app/core/router.js"></script>
+    <script src="app/core/directives/focusOn.js"></script>
+    <script src="app/core/services/auth.js"></script>
+    <script src="app/core/services/users.js"></script>
+    <script src="app/core/services/companies.js"></script>
 
     <script src="app/modules/calls/module.js"></script>
     <script src="app/modules/calls/router.js"></script>
-    <script src="app/modules/calls/controllers/calls.js"></script>
+    <script src="app/modules/calls/filters/date.js"></script>
+    <script src="app/modules/calls/controllers/main.js"></script>
+    <script src="app/modules/calls/controllers/lists.js"></script>
+    <script src="app/modules/calls/controllers/filters.js"></script>
+    <script src="app/modules/calls/directives/filterType/string.js"></script>
+    <script src="app/modules/calls/directives/filterType/int.js"></script>
+    <script src="app/modules/calls/directives/filterType/date.js"></script>
+    <script src="app/modules/calls/directives/filterType/boolean.js"></script>
+    <script src="app/modules/calls/directives/filter.js"></script>
     <script src="app/modules/calls/services/calls.js"></script>
     <script src="app/modules/calls/services/status.js"></script>
-    <script src="app/modules/calls/filters/phone.js"></script>
-
-
-    <script src="app/app.module.js"></script>
-    <script src="app/app.routes.js"></script>
 
     <script type="text/javascript">
 
@@ -76,9 +83,6 @@
 
     </script>
 
-    <script src="app/core/services/auth.js"></script>
-    <script src="app/core/services/users.js"></script>
-    <script src="app/core/services/companies.js"></script>
 
     <script src="app/core/my-account/controllers/my-account.js"></script>
     <script src="app/core/my-account/services/my-account.js"></script>

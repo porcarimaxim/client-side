@@ -30,7 +30,7 @@
 			<td class="column" ng-show="data.columns['status']" data-title="'Status'" sortable="'status'">{{call.status}}</td>
 			<td class="column" ng-show="data.columns['timer']" data-title="'Timer'" sortable="'timer'">{{call.timer}}</td>
 			<td class="column" ng-show="data.columns['full_name']" data-title="'Operator'" sortable="'full_name'">{{call.user.last_name}} {{call.user.first_name}}</td>
-			<td class="column" ng-show="data.columns['created_at']" data-title="'Created at'" sortable="'created_at'">{{parseTheDate(call.created_at.date) | date:'dd/MM/yyyy HH:mm'}}</td>
+			<td class="column" ng-show="data.columns['created_at']" data-title="'Created at'" sortable="'created_at'">{{call.created_at.date | formatDate}}</td>
 		</tr>
 		</tbody>
 	</table>
@@ -57,4 +57,5 @@
 			</li>
 		</ul>
 	</script>
+
 </md-content>

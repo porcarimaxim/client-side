@@ -4,19 +4,30 @@
 
 	/* Controllers */
 
-	app.controller('CallsListCtrl', ['$scope', '$timeout', '$log', 'Calls', 'ngTableParams', 'Status', 'AuthService',
+	app.controller( 'ListsCtrl', [
+		'$scope',
+		'$timeout',
+		'$log',
+		'Calls',
+		'ngTableParams',
+		'Status',
+		'AuthService',
+		'AuthService',
 		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService) {
-			var currentUser = AuthService.getUser(),
-				currentCompany = AuthService.getCompany();
 
-			// TODO de facut un formatter nou
-			$scope.parseTheDate = function(dateString) {
-				if (dateString) {
-					var properlyFormattedDate = dateString.split(" ").join("T");
-					return new Date(properlyFormattedDate);
-				} else {
-					return null;
-				}
+			$scope.$on('filter-calls', function (event, filterData) {
+				console.log( filterData );
+			});
+
+			/**
+			 * View properties
+			 */
+			$scope.data.columns = {
+				'number': true,
+				'status': true,
+				'timer': true,
+				'full_name': true,
+				'created_at': true
 			};
 
 			var processParams = function (params) {
@@ -44,25 +55,6 @@
 				};
 			};
 
-			/**
-			 * View properties
-			 */
-			$scope.data = {
-				userAvailable: AuthService.getUserStatus(),
-				loading: true,
-				columns: {
-					'number': true,
-					'status': true,
-					'timer': true,
-					'full_name': true,
-					'created_at': true
-				}
-			};
-
-			/**
-			 * API calls
-			 */
-
 			// Initialise ng-table
 			$scope.tableParams = new NgTableParams({
 				page: 1,
@@ -85,34 +77,9 @@
 							// set new data
 							$defer.resolve(calls.calls);
 						}, 500);
-
 					});
 				}
 			});
-
-
-
-			/**
-			 * Handlers
-			 */
-			//availability
-			$scope.changeAvailability = function (isAvailable) {
-				Status.update({
-					id: currentUser.id
-				}, {
-					company_id: currentCompany.id,
-					user_id: currentUser.id,
-					is_available: isAvailable
-				}).$promise.then(
-					function () {
-						AuthService.setUserStatus(isAvailable);
-					},
-					function () {
-						$scope.data.userAvailable = AuthService.getUserStatus();
-					}
-				);
-			};
-
 
 			// checkboxes selected
 			$scope.checkboxes = { 'checked': false, 'itemsChecked': 0, items: {} };
@@ -142,11 +109,7 @@
 				}
 				$scope.checkboxes.itemsChecked = checked;
 
-				// TODO nu exista indeterminate state in material design
-				// grayed checkbox
-				//angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
 			}, true);
-
 
 		}]);
 }(phone));

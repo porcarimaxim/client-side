@@ -1,3 +1,8 @@
+/**
+ * Calls module.
+ * @module calls
+ */
+
 'use strict';
 var phone = (function () {
 
