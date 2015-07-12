@@ -1,17 +1,41 @@
+/**
+ * @ngdoc controller
+ * @name ListsController
+ * @requires $scope
+ * @requires $timeout
+ * @requires $log
+ * @requires Calls
+ * @requires ngTableParams
+ * @requires Status
+ * @requires AuthService
+ * @listens filter-calls
+ *
+ * @property {Array} data.columns example
+ *<pre>{
+ *	'number': true,
+ *	'status': true,
+ *	'timer': true,
+ *	'full_name': true,
+ *	'created_at': true,
+ *	...
+ *};</pre>
+ * @property {ngTableParams} tableParams ng-table definition
+ * @property {object} checkboxes table checked items
+ */
+
 ( function (app) {
 
 	'use strict';
 
 	/* Controllers */
 
-	app.controller( 'ListsCtrl', [
+	app.controller( 'ListsController', [
 		'$scope',
 		'$timeout',
 		'$log',
 		'Calls',
 		'ngTableParams',
 		'Status',
-		'AuthService',
 		'AuthService',
 		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService) {
 

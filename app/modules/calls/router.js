@@ -24,11 +24,11 @@
 						},
 						'filters@app.calls': {
 							templateUrl: 'app/modules/calls/views/partials/filters.html',
-							controller: 'FiltersCtrl'
+							controller: 'FiltersController'
 						},
 						'list@app.calls': {
 							templateUrl: 'app/modules/calls/views/partials/list.html',
-							controller: 'ListsCtrl'
+							controller: 'ListsController'
 						}
 					}
 				} );

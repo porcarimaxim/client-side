@@ -1,10 +1,25 @@
+/**
+ * @ngdoc controller
+ * @name MainController
+ *
+ * @requires $scope
+ * @requires $timeout
+ * @requires $log
+ * @requires Calls
+ * @requires ngTableParams
+ * @requires Status
+ * @requires AuthService
+ *
+ * @property {object} data userAvailable and loading param
+ */
+
 ( function (app) {
 
 	'use strict';
 
 	/* Controllers */
 
-	app.controller( 'CallsListCtrl', [
+	app.controller( 'MainController', [
 		'$scope',
 		'$timeout',
 		'$log',
@@ -28,7 +43,14 @@
 			 * Handlers
 			 */
 			//availability
+			/**
+			 * Change user availability
+			 * @memberof MainController
+			 * @function changeAvailability
+			 * @param {boolean} isAvailable
+			 */
 			$scope.changeAvailability = function (isAvailable) {
+
 				Status.update({
 					id: currentUser.id
 				}, {

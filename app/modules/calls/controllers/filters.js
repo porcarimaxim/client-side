@@ -1,10 +1,44 @@
+/**
+ * @ngdoc controller
+ * @name FiltersController
+ * @requires $scope
+ * @requires $timeout
+ * @requires $rootScope
+ * @fires filter-calls
+ * @property {Array} data.availableFilters example
+ *<pre>[
+ *	 {
+ *		 'property': 'number',
+ *		 'name': 'Number',
+ *		 'type': 'string',
+ *		 'active': true
+ *	 },
+ *	 ...
+ *];</pre>
+ * @property {Array} data.activeFilters example
+ *<pre>{
+ *		number: {
+ *			active: true,
+ *			type: 'string',
+ *			filters: [
+ *				{
+ *					operator: "contains"
+ *					value: "Porcari Maxim"
+ *				}
+ * 			]
+ *		},
+ *		...
+ *	}
+ * };</pre>
+ */
+
 ( function( app ) {
 
 	'use strict';
 
 	/* Controllers */
 
-	app.controller( 'FiltersCtrl', [
+	app.controller( 'FiltersController', [
 		'$scope',
 		'$timeout',
 		'$rootScope',
@@ -50,29 +84,25 @@
 				}
 			];
 
-			/**
-			 * filter demo
-			 * activeFilters = {
-			* 		number: {
-			* 			active: true,
-			* 			type: 'string',
-			* 			filters: [
-			* 				{
-			* 					operator: "contains"
-			* 					value: "Porcari Maxim"
-			* 				}
-			* 			]
-			* 		}
-			* 	}
-			 * }
-			 */
 			$scope.data.activeFilters = {};
 
+			/**
+			 * Add new filter for filterProperty
+			 * @memberof FiltersController
+			 * @function createPropertyFilter
+			 * @param {String} property the name of collection that object belongs to
+			 */
 			$scope.addPropertyFilter = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
 				fieldFilters.filters.push({});
 			};
 
+			/**
+			 * Create filter for filterProperty
+			 * @memberof FiltersController
+			 * @function createPropertyFilter
+			 * @param {String} property the name of collection that object belongs to
+			 */
 			$scope.createPropertyFilter = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
 				fieldFilters.type = _.result( _.find($scope.data.availableFilters, { 'property': property }), 'type' );
@@ -81,6 +111,13 @@
 				}
 			};
 
+			/**
+			 * Check if Add Filter button is visible
+			 * @memberof FiltersController
+			 * @function isVisiblePropertyFilterBtn
+			 * @param {String} property the name of collection that object belongs to
+			 * @returns {Boolean} `true` for visible `false` for invisible
+			 */
 			$scope.isVisiblePropertyFilterBtn = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
 				return fieldFilters &&
@@ -89,7 +126,20 @@
 					fieldFilters.filters[fieldFilters.filters.length - 1].value;
 			};
 
+			/**
+			 * Throw filter-calls event
+			 * @memberof FiltersController
+			 * @function filterCalls
+			 * @fires filter-calls
+			 */
 			$scope.filterCalls = function() {
+				/**
+				 * FilterCalls event.
+				 *
+				 * @event filter-calls
+				 * @eventType emit
+				 * @type {object}
+				 */
 				$scope.$emit( 'filter-calls', $scope.data.activeFilters );
 			}
 		}
