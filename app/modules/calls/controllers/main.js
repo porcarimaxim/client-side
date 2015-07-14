@@ -9,6 +9,7 @@
  * @requires ngTableParams
  * @requires Status
  * @requires AuthService
+ * @requires LoaderService
  *
  * @property {object} data userAvailable and loading param
  */
@@ -27,17 +28,31 @@
 		'ngTableParams',
 		'Status',
 		'AuthService',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService) {
+		'LoaderService',
+		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService) {
 			var currentUser = AuthService.getUser(),
 				currentCompany = AuthService.getCompany();
+
+			//$scope.$on('filter-calls', function( event, message ){
+			//	console.log( 'broadcast - 1 - 6 ', arguments );
+			//	$scope.$broadcast(  event.name, message );
+			//});
 
 			/**
 			 * View properties
 			 */
+			LoaderService.setLoading( true );
+
 			$scope.data = {
-				userAvailable: AuthService.getUserStatus(),
-				loading: true
+				userAvailable: AuthService.getUserStatus()
 			};
+
+			$scope.$watch(
+				function(){ return LoaderService.getLoading() },
+				function(newVal) {
+					$scope.data.loading = newVal;
+				}
+			);
 
 			/**
 			 * Handlers
@@ -50,7 +65,6 @@
 			 * @param {boolean} isAvailable
 			 */
 			$scope.changeAvailability = function (isAvailable) {
-
 				Status.update({
 					id: currentUser.id
 				}, {

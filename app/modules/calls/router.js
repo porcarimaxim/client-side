@@ -20,7 +20,7 @@
 					views: {
 						'content@': {
 							templateUrl: 'app/modules/calls/views/calls.html',
-							controller: 'CallsListCtrl'
+							controller: 'MainController'
 						},
 						'filters@app.calls': {
 							templateUrl: 'app/modules/calls/views/partials/filters.html',

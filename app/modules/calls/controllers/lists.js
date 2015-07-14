@@ -1,6 +1,7 @@
 /**
  * @ngdoc controller
  * @name ListsController
+ * @requires $rootScope
  * @requires $scope
  * @requires $timeout
  * @requires $log
@@ -8,6 +9,7 @@
  * @requires ngTableParams
  * @requires Status
  * @requires AuthService
+ * @requires LoaderService
  * @listens filter-calls
  *
  * @property {Array} data.columns example
@@ -30,6 +32,7 @@
 	/* Controllers */
 
 	app.controller( 'ListsController', [
+		'$rootScope',
 		'$scope',
 		'$timeout',
 		'$log',
@@ -37,15 +40,14 @@
 		'ngTableParams',
 		'Status',
 		'AuthService',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService) {
-
-			$scope.$on('filter-calls', function (event, filterData) {
-				console.log( filterData );
-			});
+		'LoaderService',
+		function ($rootScope, $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService) {
 
 			/**
 			 * View properties
 			 */
+			$scope.data = {};
+
 			$scope.data.columns = {
 				'number': true,
 				'status': true,
@@ -90,10 +92,9 @@
 				total: 0,           // length of data
 				getData: function($defer, params) {
 					// ajax request to api
-					$scope.data.loading = true;
 					Calls.get(processParams(params), function (calls) {
 						$scope.calls = calls.calls;
-						$scope.data.loading = false;
+						LoaderService.setLoading(false);
 
 						$timeout(function() {
 							// update table params
@@ -134,6 +135,10 @@
 				$scope.checkboxes.itemsChecked = checked;
 
 			}, true);
+
+			$rootScope.$on('filter-calls', function (event, filterData) {
+				console.log( 're filter store data', filterData );
+			});
 
 		}]);
 }(phone));

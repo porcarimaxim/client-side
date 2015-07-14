@@ -1,9 +1,9 @@
 /**
  * @ngdoc controller
  * @name FiltersController
+ * @requires $rootScope
  * @requires $scope
  * @requires $timeout
- * @requires $rootScope
  * @fires filter-calls
  * @property {Array} data.availableFilters example
  *<pre>[
@@ -39,10 +39,10 @@
 	/* Controllers */
 
 	app.controller( 'FiltersController', [
+		'$rootScope',
 		'$scope',
 		'$timeout',
-		'$rootScope',
-		function( $scope, $timeout, $rootScope ) {
+		function( $rootScope, $scope, $timeout ) {
 
 			$scope.data.availableFilters = [
 				{
@@ -140,7 +140,7 @@
 				 * @eventType emit
 				 * @type {object}
 				 */
-				$scope.$emit( 'filter-calls', $scope.data.activeFilters );
+				$rootScope.$emit( 'filter-calls', $scope.data.activeFilters );
 			}
 		}
 	] );

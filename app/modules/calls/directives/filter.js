@@ -91,10 +91,10 @@
 				\
 				<md-content class="filters" class="md-padding">\
 					<md-card>\
-						<string-filter ng-if="filterType===\'string\'" filter-model="filter" on-filter-change="onFilterChange()"></string-filter>\
-						<date-filter ng-if="filterType===\'date\'" filter-model="filter" on-filter-change="onFilterChange()"></date-filter>\
-						<int-filter ng-if="filterType===\'int\'" filter-model="filter" on-filter-change="onFilterChange()"></int-filter>\
-						<boolean-filter ng-if="filterType===\'boolean\'" filter-model="filter" on-filter-change="onFilterChange()"></boolean-filter>\
+						<string-filter ng-if="filterType===\'string\'" filter-model="filterModel" on-filter-change="onFilterChange()"></string-filter>\
+						<date-filter ng-if="filterType===\'date\'" filter-model="filterModel" on-filter-change="onFilterChange()"></date-filter>\
+						<int-filter ng-if="filterType===\'int\'" filter-model="filterModel" on-filter-change="onFilterChange()"></int-filter>\
+						<boolean-filter ng-if="filterType===\'boolean\'" filter-model="filterModel" on-filter-change="onFilterChange()"></boolean-filter>\
 					</md-card>\
 				</md-content>\
 				\
