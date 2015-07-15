@@ -41,18 +41,22 @@
 
 	'use strict';
 
-	app.directive( 'booleanFilter', function( $compile ) {
+	app.directive( 'booleanFilter', function( ) {
 
 		return {
 			restrict: 'AE',
 			replace: 'true',
 			scope: {
 				filterModel: '=',
-				onFilterChange: '&'
+				onFilterChange: '&',
+				onDeleteFilter: '&'
 			},
 			template: '\
 		\
 			<md-radio-group ng-model="filterModel.operator" ng-change="onFilterChange()">\
+				<md-button ng-click="onDeleteFilter()" style="position: absolute;right: 0; top: 0;" class="md-icon-button" aria-label="More">\
+					<md-icon md-svg-icon="app/assets/img/icons/ic_close_24px.svg"></md-icon>\
+				</md-button>\
 				<md-radio-button value="is_true">is true</md-radio-button>\
 				<md-radio-button value="is_false">is false</md-radio-button>\
 				<md-radio-button value="is_unknown">is unknown</md-radio-button>\

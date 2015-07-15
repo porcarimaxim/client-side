@@ -2,7 +2,7 @@
 <div ng-repeat="filter in data.availableFilters" layout="column">
 	<md-checkbox ng-model="data.activeFilters[filter.property].active" ng-change="createPropertyFilter(filter.property)">{{filter.name}}</md-checkbox>
 	<div ng-repeat="item in data.activeFilters[filter.property].filters" ng-show="data.activeFilters[filter.property].active">
-		<filter filter-model="item" filter-type="filter.type" filter-index="{{$index}}" filter-calls="filterCalls()"></filter>
+		<filter filter-model="item" delete-filter="deleteFilter(filter.property, $index)" filter-type="filter.type" filter-calls="filterCalls()"></filter>
 	</div>
 	<md-button
 			flex

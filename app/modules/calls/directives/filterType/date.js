@@ -54,6 +54,9 @@
 				<md-radio-group \
 							ng-model="filterModel.operator" \
 							ng-change="onFilterChange()"> \
+					<md-button ng-click="onDeleteFilter()" style="position: absolute;right: 0; top: 0;" class="md-icon-button" aria-label="More">\
+						<md-icon md-svg-icon="app/assets/img/icons/ic_close_24px.svg"></md-icon>\
+					</md-button>\
 					<md-radio-button value="more_than">more than</md-radio-button>\
 					<md-input-container ng-show="filterModel.operator===\'more_than\'" md-no-float>\
 						<input \

@@ -106,7 +106,7 @@
 			$scope.createPropertyFilter = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
 				fieldFilters.type = _.result( _.find($scope.data.availableFilters, { 'property': property }), 'type' );
-				if( !fieldFilters.filters ) {
+				if( ! ( fieldFilters.filters && fieldFilters.filters.length ) ) {
 					fieldFilters.filters = [{}];
 				}
 			};
@@ -123,9 +123,23 @@
 				return fieldFilters &&
 					fieldFilters.active &&
 					fieldFilters.filters &&
-					fieldFilters.filters[fieldFilters.filters.length - 1].value;
+					fieldFilters.filters.length &&
+					(
+						fieldFilters.filters[fieldFilters.filters.length - 1].value ||
+						fieldFilters.filters[fieldFilters.filters.length - 1].value === undefined &&
+						fieldFilters.filters[fieldFilters.filters.length - 1].operator
+					);
 			};
 
+
+			$scope.deleteFilter = function( property, index ) {
+				console.log(property, index);
+				var fieldFilters = $scope.data.activeFilters[property];
+				delete fieldFilters.filters.splice(index, 1);
+				if( ! ( fieldFilters.filters && fieldFilters.filters.length ) ) {
+					fieldFilters.active = false;
+				}
+			};
 			/**
 			 * Throw filter-calls event
 			 * @memberof FiltersController

@@ -76,6 +76,9 @@
 					timeout = null;
 				}, 250 );
 			};
+			$scope.onDeleteFilter = function() {
+				$scope.deleteFilter();
+			}
 		};
 
 		return {
@@ -84,17 +87,18 @@
 			scope: {
 				filterType: '=',
 				filterModel: '=',
-				filterCalls: '&'
+				filterCalls: '&',
+				deleteFilter: '&'
 			},
 			link: linkFunc,
 			template: '\
 				\
 				<md-content class="filters" class="md-padding">\
 					<md-card>\
-						<string-filter ng-if="filterType===\'string\'" filter-model="filterModel" on-filter-change="onFilterChange()"></string-filter>\
-						<date-filter ng-if="filterType===\'date\'" filter-model="filterModel" on-filter-change="onFilterChange()"></date-filter>\
-						<int-filter ng-if="filterType===\'int\'" filter-model="filterModel" on-filter-change="onFilterChange()"></int-filter>\
-						<boolean-filter ng-if="filterType===\'boolean\'" filter-model="filterModel" on-filter-change="onFilterChange()"></boolean-filter>\
+						<string-filter on-delete-filter="onDeleteFilter()" ng-if="filterType===\'string\'" filter-model="filterModel" on-filter-change="onFilterChange()"></string-filter>\
+						<date-filter on-delete-filter="onDeleteFilter()" ng-if="filterType===\'date\'" filter-model="filterModel" on-filter-change="onFilterChange()"></date-filter>\
+						<int-filter on-delete-filter="onDeleteFilter()" ng-if="filterType===\'int\'" filter-model="filterModel" on-filter-change="onFilterChange()"></int-filter>\
+						<boolean-filter on-delete-filter="onDeleteFilter()" ng-if="filterType===\'boolean\'" filter-model="filterModel" on-filter-change="onFilterChange()"></boolean-filter>\
 					</md-card>\
 				</md-content>\
 				\
