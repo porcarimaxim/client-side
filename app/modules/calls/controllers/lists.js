@@ -56,29 +56,99 @@
 				'created_at': true
 			};
 
+
+			var mapFilterOperator = function( operator ) {
+				switch (operator) {
+					case 'contains':
+						return '-lk';
+					case 'does_not_contains':
+						return '-not-lk';
+						break;
+					case 'is_unknown':
+						return '';
+						break;
+					case 'has_any_value':
+						return '-not';
+						break;
+					case 'greater_than':
+					case 'after': // for date
+						return '-gt';
+						break;
+					case 'less_than':
+					case 'before': // for date
+						return '-st';
+						break;
+					case 'is_not':
+						return '-not';
+						break;
+					case 'is':
+					case 'on': // for date
+						return '';
+						break;
+				}
+				return '';
+			};
+
+			var formatFilterKey = function( property, operator ) {
+				return property + mapFilterOperator( operator );
+			};
+
+			var formatFilterValue = function( operator, value ) {
+
+				switch (operator) {
+					case 'contains':
+					case 'does_not_contains':
+						return '*' + value + '*';
+						break;
+					case 'is_unknown':
+					case 'has_any_value':
+						return 'null';
+						break;
+				}
+				return value;
+			};
+
+
 			var processParams = function (params) {
 				var sorting = params.sorting(),
-					sortString = [];
+					filter = params.filter(),
+					sortString = [],
+					filterObject = {},
+					requestParam = {};
 
-				_.forEach(sorting, function(value, key) {
-					switch( key ) {
+
+				var prepareFilters = function( value, property ) {
+					if ( value.active ) {
+						_.forEach( value.filters, function( filter ) {
+							filterObject[formatFilterKey( property, filter.operator )] = formatFilterValue(filter.operator, filter.value);
+						} );
+					}
+				};
+
+				_.forEach( filter, prepareFilters );
+
+				_.forEach( sorting, function( value, key ) {
+					switch ( key ) {
 						case 'full_name':
 							// TODO nu merge
-							sortString.push( ( 'desc' === value ? '-' : '')  + 'user.first_name');
-							sortString.push( ( 'desc' === value ? '-' : '')  + 'user.last_name');
+							sortString.push( ( 'desc' === value ? '-' : '') + 'user.first_name' );
+							sortString.push( ( 'desc' === value ? '-' : '') + 'user.last_name' );
 							break;
 						default :
-							sortString.push( ( 'desc' === value ? '-' : '')  + key);
+							sortString.push( ( 'desc' === value ? '-' : '') + key );
 							break;
 					}
+				} );
 
-				});
-
-				return {
+				_.assign(requestParam, {
 					'_sort': sortString.join(','),
 					'_limit': params.count(),
 					'_offset': ( params.page() * params.count() ) - params.count()
-				};
+				});
+
+				_.assign(requestParam, filterObject);
+
+				return requestParam;
 			};
 
 			// Initialise ng-table
@@ -92,6 +162,7 @@
 				total: 0,           // length of data
 				getData: function($defer, params) {
 					// ajax request to api
+					LoaderService.setLoading(true);
 					Calls.get(processParams(params), function (calls) {
 						$scope.calls = calls.calls;
 						LoaderService.setLoading(false);
@@ -137,7 +208,8 @@
 			}, true);
 
 			$rootScope.$on('filter-calls', function (event, filterData) {
-				console.log( 're filter store data', filterData );
+				console.log(filterData);
+				$scope.tableParams.filter(filterData);
 			});
 
 		}]);

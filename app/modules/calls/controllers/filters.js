@@ -112,6 +112,8 @@
 			};
 
 			/**
+			 *
+			 * TODO: for now we can add only one filter because server do not support multiple filters
 			 * Check if Add Filter button is visible
 			 * @memberof FiltersController
 			 * @function isVisiblePropertyFilterBtn
@@ -119,21 +121,34 @@
 			 * @returns {Boolean} `true` for visible `false` for invisible
 			 */
 			$scope.isVisiblePropertyFilterBtn = function( property ) {
-				var fieldFilters = $scope.data.activeFilters[property];
-				return fieldFilters &&
-					fieldFilters.active &&
-					fieldFilters.filters &&
-					fieldFilters.filters.length &&
-					(
-						fieldFilters.filters[fieldFilters.filters.length - 1].value ||
-						fieldFilters.filters[fieldFilters.filters.length - 1].value === undefined &&
-						fieldFilters.filters[fieldFilters.filters.length - 1].operator
-					);
+
+				return false;
+
+				var fieldFilters = $scope.data.activeFilters[property],
+					lastFilter =  fieldFilters &&
+						fieldFilters.active &&
+						fieldFilters.filters &&
+						fieldFilters.filters.length &&
+						fieldFilters.filters[fieldFilters.filters.length - 1] || {},
+					filterValue = lastFilter.value,
+					filterRelativeValue = lastFilter.relative_value,
+					filterAbsoluteValue = lastFilter.absolute_value,
+					filterOperator = lastFilter.operator;
+
+				if ( _.includes( [
+						'is_true',
+						'is_false',
+						'is_unknown',
+						'has_any_value'
+					], filterOperator ) ) {
+					return true;
+				}
+
+				return filterValue || filterRelativeValue || filterAbsoluteValue;
 			};
 
 
 			$scope.deleteFilter = function( property, index ) {
-				console.log(property, index);
 				var fieldFilters = $scope.data.activeFilters[property];
 				delete fieldFilters.filters.splice(index, 1);
 				if( ! ( fieldFilters.filters && fieldFilters.filters.length ) ) {
