@@ -12,7 +12,7 @@
  * @param {Array} filterModel The filter array
  *        example
  *         <pre>
-			* {
+ * {
 			*   active: true,
 			*   type: 'string',
 			*   filters: [
@@ -22,7 +22,7 @@
 			*       }
 			*   ]
 			* }
- * 		    </pre>
+ *            </pre>
  * @param {Function} onFilterChange on-change callback function
  *
  * @example
@@ -41,7 +41,7 @@
 
 	'use strict';
 
-	app.directive( 'dateFilter', function( ) {
+	app.directive( 'dateFilter', function() {
 
 		return {
 			restrict: 'AE',
@@ -91,5 +91,5 @@
 			\
 		'
 		};
-	});
+	} );
 }( phone ));

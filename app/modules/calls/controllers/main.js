@@ -14,7 +14,7 @@
  * @property {object} data userAvailable and loading param
  */
 
-( function (app) {
+( function( app ) {
 
 	'use strict';
 
@@ -29,7 +29,7 @@
 		'Status',
 		'AuthService',
 		'LoaderService',
-		function ($scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService) {
+		function( $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService ) {
 			var currentUser = AuthService.getUser(),
 				currentCompany = AuthService.getCompany();
 
@@ -48,8 +48,10 @@
 			};
 
 			$scope.$watch(
-				function(){ return LoaderService.getLoading() },
-				function(newVal) {
+				function() {
+					return LoaderService.getLoading()
+				},
+				function( newVal ) {
 					$scope.data.loading = newVal;
 				}
 			);
@@ -64,22 +66,23 @@
 			 * @function changeAvailability
 			 * @param {boolean} isAvailable
 			 */
-			$scope.changeAvailability = function (isAvailable) {
-				Status.update({
+			$scope.changeAvailability = function( isAvailable ) {
+				Status.update( {
 					id: currentUser.id
 				}, {
 					company_id: currentCompany.id,
 					user_id: currentUser.id,
 					is_available: isAvailable
-				}).$promise.then(
-					function () {
-						AuthService.setUserStatus(isAvailable);
+				} ).$promise.then(
+					function() {
+						AuthService.setUserStatus( isAvailable );
 					},
-					function () {
+					function() {
 						$scope.data.userAvailable = AuthService.getUserStatus();
 					}
 				);
 			};
 
-		}]);
-}(phone));
+		}
+	] );
+}( phone ));

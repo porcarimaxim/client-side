@@ -1,6 +1,6 @@
 /**
  * @ngdoc directive
-* @name filter/stringFilter
+ * @name filter/stringFilter
  *
  * @description
  *   string Filter.
@@ -22,7 +22,7 @@
 			*       }
 			*   ]
 			* }
- * 		    </pre>
+ *            </pre>
  * @param {Function} onFilterChange on-change callback function
  *
  * @example
@@ -42,7 +42,7 @@
 
 	'use strict';
 
-	app.directive( 'stringFilter', function( ) {
+	app.directive( 'stringFilter', function() {
 
 		return {
 			restrict: 'AE',
@@ -82,5 +82,5 @@
 		\
 		'
 		};
-	});
+	} );
 }( phone ));

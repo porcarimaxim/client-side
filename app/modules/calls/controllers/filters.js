@@ -7,13 +7,13 @@
  * @fires filter-calls
  * @property {Array} data.availableFilters example
  *<pre>[
- *	 {
+ *     {
  *		 'property': 'number',
  *		 'name': 'Number',
  *		 'type': 'string',
  *		 'active': true
  *	 },
- *	 ...
+ *     ...
  *];</pre>
  * @property {Array} data.activeFilters example
  *<pre>{
@@ -94,7 +94,7 @@
 			 */
 			$scope.addPropertyFilter = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
-				fieldFilters.filters.push({});
+				fieldFilters.filters.push( {} );
 			};
 
 			/**
@@ -105,8 +105,8 @@
 			 */
 			$scope.createPropertyFilter = function( property ) {
 				var fieldFilters = $scope.data.activeFilters[property];
-				fieldFilters.type = _.result( _.find($scope.data.availableFilters, { 'property': property }), 'type' );
-				if( ! ( fieldFilters.filters && fieldFilters.filters.length ) ) {
+				fieldFilters.type = _.result( _.find( $scope.data.availableFilters, {'property': property} ), 'type' );
+				if ( !( fieldFilters.filters && fieldFilters.filters.length ) ) {
 					fieldFilters.filters = [{}];
 				}
 			};
@@ -125,7 +125,7 @@
 				return false;
 
 				var fieldFilters = $scope.data.activeFilters[property],
-					lastFilter =  fieldFilters &&
+					lastFilter = fieldFilters &&
 						fieldFilters.active &&
 						fieldFilters.filters &&
 						fieldFilters.filters.length &&
@@ -150,8 +150,8 @@
 
 			$scope.deleteFilter = function( property, index ) {
 				var fieldFilters = $scope.data.activeFilters[property];
-				delete fieldFilters.filters.splice(index, 1);
-				if( ! ( fieldFilters.filters && fieldFilters.filters.length ) ) {
+				delete fieldFilters.filters.splice( index, 1 );
+				if ( !( fieldFilters.filters && fieldFilters.filters.length ) ) {
 					fieldFilters.active = false;
 				}
 			};

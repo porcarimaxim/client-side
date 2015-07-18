@@ -1,14 +1,14 @@
 ( function( app ) {
 	'use strict';
 
-	app.service( 'LoaderService', function( ) {
+	app.service( 'LoaderService', function() {
 		var isLoading = false;
 
 		function setLoading( loading ) {
 			isLoading = loading;
 		}
 
-		function getLoading( ) {
+		function getLoading() {
 			return isLoading;
 		}
 

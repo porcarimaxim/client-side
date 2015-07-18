@@ -25,7 +25,7 @@
  * @property {object} checkboxes table checked items
  */
 
-( function (app) {
+( function( app ) {
 
 	'use strict';
 
@@ -41,7 +41,7 @@
 		'Status',
 		'AuthService',
 		'LoaderService',
-		function ($rootScope, $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService) {
+		function( $rootScope, $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService ) {
 
 			/**
 			 * View properties
@@ -58,7 +58,7 @@
 
 
 			var mapFilterOperator = function( operator ) {
-				switch (operator) {
+				switch ( operator ) {
 					case 'contains':
 						return '-lk';
 					case 'does_not_contains':
@@ -95,7 +95,7 @@
 
 			var formatFilterValue = function( operator, value ) {
 
-				switch (operator) {
+				switch ( operator ) {
 					case 'contains':
 					case 'does_not_contains':
 						return '*' + value + '*';
@@ -109,7 +109,7 @@
 			};
 
 
-			var processParams = function (params) {
+			var processParams = function( params ) {
 				var sorting = params.sorting(),
 					filter = params.filter(),
 					sortString = [],
@@ -120,7 +120,7 @@
 				var prepareFilters = function( value, property ) {
 					if ( value.active ) {
 						_.forEach( value.filters, function( filter ) {
-							filterObject[formatFilterKey( property, filter.operator )] = formatFilterValue(filter.operator, filter.value);
+							filterObject[formatFilterKey( property, filter.operator )] = formatFilterValue( filter.operator, filter.value );
 						} );
 					}
 				};
@@ -140,19 +140,19 @@
 					}
 				} );
 
-				_.assign(requestParam, {
-					'_sort': sortString.join(','),
+				_.assign( requestParam, {
+					'_sort': sortString.join( ',' ),
 					'_limit': params.count(),
 					'_offset': ( params.page() * params.count() ) - params.count()
-				});
+				} );
 
-				_.assign(requestParam, filterObject);
+				_.assign( requestParam, filterObject );
 
 				return requestParam;
 			};
 
 			// Initialise ng-table
-			$scope.tableParams = new NgTableParams({
+			$scope.tableParams = new NgTableParams( {
 				page: 1,
 				count: 25,
 				sorting: {
@@ -160,57 +160,61 @@
 				}
 			}, {
 				total: 0,           // length of data
-				getData: function($defer, params) {
+				getData: function( $defer, params ) {
 					// ajax request to api
-					LoaderService.setLoading(true);
-					Calls.get(processParams(params), function (calls) {
+					LoaderService.setLoading( true );
+					Calls.get( processParams( params ), function( calls ) {
 						$scope.calls = calls.calls;
-						LoaderService.setLoading(false);
+						LoaderService.setLoading( false );
 
-						$timeout(function() {
+						$timeout( function() {
 							// update table params
-							params.total(calls.meta.pagination.total);
+							params.total( calls.meta.pagination.total );
 							// set new data
-							$defer.resolve(calls.calls);
-						}, 500);
-					});
+							$defer.resolve( calls.calls );
+						}, 500 );
+					} );
 				}
-			});
+			} );
 
 			// checkboxes selected
-			$scope.checkboxes = { 'checked': false, 'itemsChecked': 0, items: {} };
+			$scope.checkboxes = {
+				'checked': false,
+				'itemsChecked': 0,
+				items: {}
+			};
 
 			// watch for check all checkbox
-			$scope.$watch('checkboxes.checked', function(value) {
-				angular.forEach($scope.calls, function(item) {
-					if (angular.isDefined(item.id)) {
+			$scope.$watch( 'checkboxes.checked', function( value ) {
+				angular.forEach( $scope.calls, function( item ) {
+					if ( angular.isDefined( item.id ) ) {
 						$scope.checkboxes.items[item.id] = value;
 					}
-				});
-			});
+				} );
+			} );
 
 			// watch for data checkboxes
-			$scope.$watch('checkboxes.items', function(values) {
-				if (!$scope.calls) {
+			$scope.$watch( 'checkboxes.items', function( values ) {
+				if ( !$scope.calls ) {
 					return;
 				}
 				var checked = 0, unchecked = 0,
 					total = $scope.calls.length;
-				angular.forEach($scope.calls, function(item) {
-					checked   +=  ($scope.checkboxes.items[item.id]) || 0;
+				angular.forEach( $scope.calls, function( item ) {
+					checked += ($scope.checkboxes.items[item.id]) || 0;
 					unchecked += (!$scope.checkboxes.items[item.id]) || 0;
-				});
-				if ((unchecked == 0) || (checked == 0)) {
+				} );
+				if ( (unchecked == 0) || (checked == 0) ) {
 					$scope.checkboxes.checked = (checked == total);
 				}
 				$scope.checkboxes.itemsChecked = checked;
 
-			}, true);
+			}, true );
 
-			$rootScope.$on('filter-calls', function (event, filterData) {
-				console.log(filterData);
-				$scope.tableParams.filter(filterData);
-			});
+			$rootScope.$on( 'filter-calls', function( event, filterData ) {
+				$scope.tableParams.filter( filterData );
+			} );
 
-		}]);
-}(phone));
+		}
+	] );
+}( phone ));

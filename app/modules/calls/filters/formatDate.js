@@ -21,41 +21,45 @@
  *
  *
  * @example
-Usage:
-<span {{ date|formatDate:format:timezone }} ..>
-	... Any children
-</span>
+ Usage:
+ <span {{ date|formatDate:format:timezone }} ..>
+ ... Any children
+ </span>
 
-Example:
-<example>
-	<file name="index.html">
-		<span ng-non-bindable>{{1288323623006 | formatDate:'medium'}}</span>:
-		<span>{{1288323623006 | formatDate:'medium'}}</span><br>
-		<span ng-non-bindable>{{1288323623006 | formatDate:'yyyy-MM-dd HH:mm:ss Z'}}</span>:
-		<span>{{1288323623006 | formatDate:'yyyy-MM-dd HH:mm:ss Z'}}</span><br>
-		<span ng-non-bindable>{{1288323623006 | formatDate:'MM/dd/yyyy @ h:mma'}}</span>:
-		<span>{{'1288323623006' | formatDate:'MM/dd/yyyy @ h:mma'}}</span><br>
-		<span ng-non-bindable>{{1288323623006 | formatDate:"MM/dd/yyyy 'at' h:mma"}}</span>:
-		<span>{{'1288323623006' | formatDate:"MM/dd/yyyy 'at' h:mma"}}</span><br>
-	</file>
-</example>
+ Example:
+ <example>
+ <file name="index.html">
+ <span ng-non-bindable>{{1288323623006 | formatDate:'medium'}}</span>:
+ <span>{{1288323623006 | formatDate:'medium'}}</span><br>
+ <span ng-non-bindable>{{1288323623006 | formatDate:'yyyy-MM-dd HH:mm:ss Z'}}</span>:
+ <span>{{1288323623006 | formatDate:'yyyy-MM-dd HH:mm:ss Z'}}</span><br>
+ <span ng-non-bindable>{{1288323623006 | formatDate:'MM/dd/yyyy @ h:mma'}}</span>:
+ <span>{{'1288323623006' | formatDate:'MM/dd/yyyy @ h:mma'}}</span><br>
+ <span ng-non-bindable>{{1288323623006 | formatDate:"MM/dd/yyyy 'at' h:mma"}}</span>:
+ <span>{{'1288323623006' | formatDate:"MM/dd/yyyy 'at' h:mma"}}</span><br>
+ </file>
+ </example>
  */
 
-( function (app) {
+( function( app ) {
 	'use strict';
 
 	/* Filters */
-	app.filter('formatDate', ['$filter', function($filter) {
-		var angularDateFilter = $filter('date');
-		return function(date, format, timezone) {
-			if (date) {
-				var properlyFormattedDate = date.split(" ").join("T" ),
-					newDate = new Date(properlyFormattedDate);
-				return angularDateFilter(newDate, format, timezone);
-			} else {
-				return null;
-			}
-		};
-	}]);
+	app.filter( 'formatDate', [
+		'$filter',
+		function( $filter ) {
+			var angularDateFilter = $filter( 'date' );
+			return function( date, format, timezone ) {
+				if ( date ) {
+					var properlyFormattedDate = date.split( " " ).join( "T" ),
+						newDate = new Date( properlyFormattedDate );
+					return angularDateFilter( newDate, format, timezone );
+				}
+				else {
+					return null;
+				}
+			};
+		}
+	] );
 
-}(phone));
+}( phone ));

@@ -17,7 +17,7 @@
  * @param {Array} filterModel The filter array
  *        example
  *         <pre>
-			* {
+ * {
 			*   active: true,
 			*   type: 'string',
 			*   filters: [
@@ -27,7 +27,7 @@
 			*       }
 			*   ]
 			* }
- * 		    </pre>
+ *            </pre>
  * @param {String} filter-index The filter index
  * @param {Function} filter-calls on-change callback function
  *
@@ -50,48 +50,50 @@
 
 	'use strict';
 
-	app.directive( 'filter', ['$timeout', function( $timeout ) {
-
-		/**
-		 * Initialize directive
-		 * @memberof filter
-		 * @param {$scope} $scope
-		 */
-
-		var linkFunc = function( $scope ) {
-			/**
-			 * init variables;
-			 */
-			var timeout = null;
+	app.directive( 'filter', [
+		'$timeout',
+		function( $timeout ) {
 
 			/**
-			 * controller function
+			 * Initialize directive
+			 * @memberof filter
+			 * @param {$scope} $scope
 			 */
-			$scope.onFilterChange = function() {
-				if ( timeout ) { //if there is already a timeout in process cancel it
-					$timeout.cancel( timeout );
+
+			var linkFunc = function( $scope ) {
+				/**
+				 * init variables;
+				 */
+				var timeout = null;
+
+				/**
+				 * controller function
+				 */
+				$scope.onFilterChange = function() {
+					if ( timeout ) { //if there is already a timeout in process cancel it
+						$timeout.cancel( timeout );
+					}
+					timeout = $timeout( function() {
+						$scope.filterCalls();
+						timeout = null;
+					}, 250 );
+				};
+				$scope.onDeleteFilter = function() {
+					$scope.deleteFilter();
 				}
-				timeout = $timeout( function() {
-					$scope.filterCalls();
-					timeout = null;
-				}, 250 );
 			};
-			$scope.onDeleteFilter = function() {
-				$scope.deleteFilter();
-			}
-		};
 
-		return {
-			restrict: 'AE',
-			replace: 'true',
-			scope: {
-				filterType: '=',
-				filterModel: '=',
-				filterCalls: '&',
-				deleteFilter: '&'
-			},
-			link: linkFunc,
-			template: '\
+			return {
+				restrict: 'AE',
+				replace: 'true',
+				scope: {
+					filterType: '=',
+					filterModel: '=',
+					filterCalls: '&',
+					deleteFilter: '&'
+				},
+				link: linkFunc,
+				template: '\
 				\
 				<md-content class="filters" class="md-padding">\
 					<md-card>\
@@ -103,6 +105,7 @@
 				</md-content>\
 				\
 			'
-		};
-	}] );
+			};
+		}
+	] );
 }( phone ));
