@@ -29,7 +29,8 @@
 		'Status',
 		'AuthService',
 		'LoaderService',
-		function( $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService ) {
+		'FRONTEND',
+		function( $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService, frontend ) {
 			var currentUser = AuthService.getUser(),
 				currentCompany = AuthService.getCompany();
 
@@ -43,6 +44,7 @@
 			 */
 			LoaderService.setLoading( true );
 
+			$scope.frontend = frontend;
 			$scope.data = {
 				userAvailable: AuthService.getUserStatus()
 			};

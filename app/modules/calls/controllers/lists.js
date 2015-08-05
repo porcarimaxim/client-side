@@ -47,7 +47,7 @@
 			 * View properties
 			 */
 			$scope.data = {};
-
+				console.log($scope.frontend, 'frontend');
 			$scope.data.columns = {
 				'number': true,
 				'status': true,
