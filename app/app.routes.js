@@ -1,8 +1,8 @@
 (function (app) {
 	'use strict';
 
-	app.config(['$stateProvider', '$urlRouterProvider',
-		function ($stateProvider, $urlRouterProvider) {
+	app.config(['$stateProvider', '$urlRouterProvider', 'FRONTEND',
+		function ($stateProvider, $urlRouterProvider, frontend) {
 
 			$urlRouterProvider.otherwise('/');
 
@@ -45,13 +45,13 @@
 					},
 					views: {
 						'header': {
-							templateUrl: 'app/core/partials/header.html'
+							templateUrl: frontend + 'app/core/partials/header.html'
 						},
 						'content': {
-							templateUrl: 'app/core/partials/content.html'
+							templateUrl: frontend + 'app/core/partials/content.html'
 						},
 						'footer': {
-							templateUrl: 'app/core/partials/footer.html'
+							templateUrl: frontend + 'app/core/partials/footer.html'
 						}
 					}
 				});

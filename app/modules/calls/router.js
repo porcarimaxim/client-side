@@ -9,7 +9,8 @@
 	app.config( [
 		'$stateProvider',
 		'$urlRouterProvider',
-		function( $stateProvider, $urlRouterProvider ) {
+		'FRONTEND',
+		function( $stateProvider, $urlRouterProvider, frontend ) {
 
 			$urlRouterProvider.otherwise( '/calls' );
 
@@ -19,15 +20,15 @@
 
 					views: {
 						'content@': {
-							templateUrl: 'app/modules/calls/views/calls.html',
+							templateUrl: frontend + 'app/modules/calls/views/calls.html',
 							controller: 'MainController'
 						},
 						'filters@app.calls': {
-							templateUrl: 'app/modules/calls/views/partials/filters.html',
+							templateUrl: frontend + 'app/modules/calls/views/partials/filters.html',
 							controller: 'FiltersController'
 						},
 						'list@app.calls': {
-							templateUrl: 'app/modules/calls/views/partials/list.html',
+							templateUrl: frontend + 'app/modules/calls/views/partials/list.html',
 							controller: 'ListsController'
 						}
 					}
