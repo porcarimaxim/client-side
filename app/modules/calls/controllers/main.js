@@ -7,7 +7,7 @@
  * @requires $log
  * @requires Calls
  * @requires ngTableParams
- * @requires Status
+ * @requires Users
  * @requires AuthService
  * @requires LoaderService
  *
@@ -26,11 +26,11 @@
 		'$log',
 		'Calls',
 		'ngTableParams',
-		'Status',
+		'Users',
 		'AuthService',
 		'LoaderService',
 		'FRONTEND',
-		function( $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService, frontend ) {
+		function( $scope, $timeout, $log, Calls, NgTableParams, Users, AuthService, LoaderService, frontend ) {
 			var currentUser = AuthService.getUser(),
 				currentCompany = AuthService.getCompany();
 
@@ -69,12 +69,12 @@
 			 * @param {boolean} isAvailable
 			 */
 			$scope.changeAvailability = function( isAvailable ) {
-				Status.update( {
+				Users.update( {
 					id: currentUser.id
 				}, {
-					company_id: currentCompany.id,
-					user_id: currentUser.id,
-					is_available: isAvailable
+					options: {
+						is_available: isAvailable
+					}
 				} ).$promise.then(
 					function() {
 						AuthService.setUserStatus( isAvailable );

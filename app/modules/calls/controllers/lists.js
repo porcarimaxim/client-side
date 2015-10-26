@@ -7,7 +7,7 @@
  * @requires $log
  * @requires Calls
  * @requires ngTableParams
- * @requires Status
+ * @requires Users
  * @requires AuthService
  * @requires LoaderService
  * @listens filter-calls
@@ -38,7 +38,7 @@
 		'$log',
 		'Calls',
 		'ngTableParams',
-		'Status',
+		'Users',
 		'AuthService',
 		'LoaderService',
 		function( $rootScope, $scope, $timeout, $log, Calls, NgTableParams, Status, AuthService, LoaderService ) {

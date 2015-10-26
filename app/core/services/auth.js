@@ -22,11 +22,11 @@
 		}
 
 		function setUserStatus(value) {
-			user.status ? ( user.status.is_available =  value ) : ( user.status = {is_available: value} );
+			user.options ? ( user.options.is_available =  value ) : ( user.options = {is_available: value} );
 		}
 
 		function getUserStatus() {
-			return ( ( getUser() || {} ).status || {} ).is_available || false;
+			return ( ( getUser() || {} ).options || {} ).is_available || false;
 		}
 
 		return {

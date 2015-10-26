@@ -1,11 +1,11 @@
 ( function( app ) {
 	'use strict';
 
-	app.factory( 'Status', [
+	app.factory( 'Users', [
 		'$resource',
 		'API',
 		function( $resource, API ) {
-			return $resource( API + '/user-statuses/:id', {}, {
+			return $resource( API + '/users/:id', {}, {
 				query: {
 					method: 'GET',
 					params: {id: ''},
