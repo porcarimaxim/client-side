@@ -54,8 +54,15 @@
 							templateUrl: frontend + 'app/core/partials/footer.html'
 						}
 					}
+				} )
+				.state('app.company-settings', {
+					url: 'company-settings',
+					views: {
+						'content@': {
+							templateUrl: frontend + 'app/core/partials/company-settings/content.html'
+						}
+					}
 				});
-
 		}
 	]);
 
